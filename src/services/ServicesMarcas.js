@@ -54,7 +54,7 @@ class ServiceMarcas {
 
         const rows = await models.findAndCountAll({where: {marcas_id: id}, offset: offset, limit: limit})
         if(!rows){
-            throw boom.notFound('models not found')
+             throw boom.notFound('models not found')
         }else{
             return {
                 "models": rows,
