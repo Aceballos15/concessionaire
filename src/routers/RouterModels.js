@@ -3,11 +3,13 @@ const routers= Router();
 
 const ServiceModels= require('../services/ServicesModels')
 const validatorHandler= require('../middlewares/ValidatorHandler');
-const { UpdateModel, CreateModel } = require('../schemas/SchemaModel');
+const { UpdateModel, CreateModel, GetModels } = require('../schemas/SchemaModel');
 
 const service= new ServiceModels(); 
 
-routers.get('/', async (req, res, next) => {
+routers.get('/', 
+validatorHandler(GetModels, 'query'), 
+async (req, res, next) => {
     try {
         const models = await service.GetModel( req.query )
         res.json(models)
@@ -27,7 +29,8 @@ validatorHandler(CreateModel, 'body'),
         }
 })
     
-routers.put('/update/:id', async (req, res, next) => {
+routers.put('/update/:id',
+    async (req, res, next) => {
     try {
         console.log(req.params.id)
         const model = await service.UpdateModel(req.params.id, req.body)

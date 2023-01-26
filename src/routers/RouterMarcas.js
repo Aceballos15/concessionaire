@@ -9,7 +9,7 @@ const service= new ServiceMarcas();
 
 routers.get('', async(req, res, next) =>{
     try {
-        const list_marc = await service.listar(); 
+        const list_marc = await service.listarMarca(); 
         res.json(list_marc);
     } catch (error) {
         res.json(error.message)
@@ -21,7 +21,7 @@ routers.post('/create',
     async (req, res)=>{
         try {
             console.log(req.body)
-            const new_marca = await service.Create(req.body)
+            const new_marca = await service.CreateMarca(req.body)
             res.json(new_marca)
         } catch (error) {
             res.json(error.message)
@@ -30,7 +30,7 @@ routers.post('/create',
 
 routers.get('/:id', async(req, res, next) =>{
     try {
-        const marca= await service.getOne(req.params.id)
+        const marca= await service.getOneMarca(req.params.id)
         res.json(marca)
     } catch (error) {
         next(error)
@@ -42,7 +42,7 @@ routers.put('/update/:id',
     validatorHandler(UpdateMarca, 'body'), 
     async(req, res, next)=>{
         try {
-            const marca = await service.update(req.params.id, req.body)
+            const marca = await service.updateMarca(req.params.id, req.body)
             res.json({"message": "update successfully", "marcas": marca})
         } catch (error) {
             next(error)
@@ -51,7 +51,7 @@ routers.put('/update/:id',
 
 routers.delete('/delete/:id', async(req, res, next) =>{
     try {
-        const del = await service.delete(req.params.id)
+        const del = await service.deleteMarca(req.params.id)
         res.json(del)
     } catch (error) {
         next(error)

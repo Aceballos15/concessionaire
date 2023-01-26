@@ -6,19 +6,19 @@ const  boom = require('@hapi/boom');
 class ServiceMarcas {
     constructor() {}
 
-    async Create(data) {
+    async CreateMarca(data) {
         const new_marca = await marcas.create(data)
         return new_marca; 
     }
     
-    async listar(){
+    async listarMarca(){
         const list= await marcas.findAll();
         if(!list){
             throw boom.notFound('Marcas not found');
         }
         return  list;
     }
-    async update(id, data){
+    async updateMarca(id, data){
         const marca= await marcas.findOne({where:{id}})
         if (!marca){
             throw boom.notFound('Marcas not found');
@@ -29,7 +29,7 @@ class ServiceMarcas {
         return marca;
     }
 
-    async delete(id){
+    async deleteMarca(id){
         const marca= await marcas.findOne({where:{id}}); 
         if (!marca){
             throw boom.notFound('Marca does not exist');
@@ -39,7 +39,7 @@ class ServiceMarcas {
         }
 
     }
-    async getOne(id){
+    async getOneMarca(id){
         const marca= await marcas.findOne({ where: {id}});
        if(!marca){
              throw boom.notFound('Marcas not found');
@@ -50,7 +50,7 @@ class ServiceMarcas {
     async getmodels(id, query){
         const { page , size } = query 
         const limit = size; 
-        const offset = page * limit
+        const offset = page * limit; 
 
         const rows = await models.findAndCountAll({where: {marcas_id: id}, offset: offset, limit: limit})
         if(!rows){
